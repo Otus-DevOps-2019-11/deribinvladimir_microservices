@@ -1,0 +1,39 @@
+{
+    "variables":
+        {
+        "project_id": null,
+        "source_image_family": null,
+        "zone": null,
+        "ssh_username": null,
+        "disk_size": null,
+        "image_description": null,
+        "machine_type": null,
+        "network": null,
+        "tags": null
+        }
+    ,
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `project_id` }}",
+            "image_name": "docker-host-base-{{timestamp}}",
+            "image_family": "docker-host-base",
+            "source_image_family": "{{ user `source_image_family` }}",
+            "disk_size": "{{ user `disk_size` }}",
+            "image_description": "Image for docker-host",
+            "zone": "{{ user `zone` }}",
+            "ssh_username": "{{ user `ssh_username` }}",
+            "machine_type": "{{ user `machine_type` }}",
+            "network": "{{ user `network` }}",
+            "tags": "{{ user `tags` }}"
+        }
+    ],
+    "provisioners": [
+    {
+        "type": "ansible",
+        "playbook_file": "ansible/playbooks/docker-host.yml",
+        "extra_arguments": ["--tags","docker-host"],
+        "ansible_env_vars": ["ANSIBLE_ROLES_PATH=~/deribinvladimir_microservices/docker-monolith/ansible/roles"]
+    }
+    ]
+}
