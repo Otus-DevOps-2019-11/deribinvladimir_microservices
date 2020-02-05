@@ -1,0 +1,14 @@
+{
+	"project_id": "docker-267019",
+	"image_name": "docker-host-base-{{timestamp}}",
+	"image_family": "docker-host-base",
+	"source_image_family": "ubuntu-1604-lts",
+	"zone": "europe-west3-a",
+	"ssh_username": "appuser",
+	"machine_type": "g1-small",
+	"disk_size": "10",
+	"disk_type": "pd-standard",
+	"image_description": "docker-host-base image using parametrized values",
+	"network": "default",
+	"tags": "reddit-app,puma-server,https-server,http-server"
+}

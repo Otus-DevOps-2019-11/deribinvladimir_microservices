@@ -1,0 +1,11 @@
+---
+- name: pack reddit-app into docker
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Run docker container reddit
+    docker_container:
+      name: reddit
+      state: started
+      image: deribinvladimir/otus-reddit:latest
