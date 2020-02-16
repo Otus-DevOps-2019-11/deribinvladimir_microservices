@@ -2,6 +2,23 @@
 
 ## deribinvladimir_microservices
 
+### docker-4
+###### What's been done during this homework:
+- different network drivers were tested and compared using joffotron/docker-net-tools image
+- usage of different bridge networks was implemented and tested for the same and different containers
+- docker-compose was installed and tested using simple docker-compose.yml
+- docker-compose.yml was updated to use few networks and network aliases and parametrized variables using .env file
+- base name, which uses as prefix for container names by docker compose, usually corresponds to folder name where docker-compose runs; it can be overriden by COMPOSE_PROJECT_NAME environment variable in .env file or by '-p / --project-name' command line option
+- docker-compose.overriden.yml was created to add abilities to change app code without rebuilding images and to run puma in debug mode
+###### Additional resources used during this homework:
+- [Docker network creation](https://docs.docker.com/engine/reference/commandline/network_create/)
+- [docker-compose installation](https://docs.docker.com/compose/install/#installcompose)
+- [docker-compose commands](https://docs.docker.com/compose/reference/)
+- [how to parametrize variables in docker-compose](https://docs.docker.com/compose/env-file/)
+- [how to parametrize network parameters](https://docs.docker.com/compose/networking/) and [explanation of network options in compose file](https://docs.docker.com/compose/compose-file/compose-file-v2/#ipv4-address-ipv6-address)
+- how to change prexfix in container names: [docker env file](https://docs.docker.com/compose/env-file/) and [more variants from stackoverflow](https://stackoverflow.com/questions/33045358/docker-compose-image-named-prefix-s-1-instead-of-s)
+- docker-compose.override.yml from [docker-compose documentation](https://docs.docker.com/compose/extends/) and [habr article in Otus blog](https://habr.com/ru/company/otus/blog/337688/)
+
 ### docker-3
 ###### What's been done during this homework:
 - downloaded, installed and builded application with microservices architecture
