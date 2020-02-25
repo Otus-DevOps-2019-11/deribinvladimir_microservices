@@ -1,4 +1,4 @@
-image: docker:stable-dind
+# image: docker:stable-dind
 # image: ruby:2.4.2
 
 stages:
@@ -22,17 +22,17 @@ build_job:
     - echo 'Getting, building and publishing reddit'
     # - sudo apt update && install git -y
   script:
-    # - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
+    - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
     - ls -l
     - cd ./docker-monolith
     - ls -l
-    - docker --privileged info
-    - docker --privileged build -t reddit:latest .
-    - docker --privileged images -a
-    - docker --privileged login -u $HUB_LOGIN -p $HUB_PASSWORD
-    - docker --privileged tag reddit:latest $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
-    - docker --privileged push $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
-    - docker --privileged rmi reddit
+    - docker info
+    - docker build -t reddit:latest .
+    - docker images -a
+    - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
+    - docker tag reddit:latest $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
+    - docker push $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
+    - docker rmi reddit
 
 test_unit_job:
   stage: test
