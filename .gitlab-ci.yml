@@ -24,12 +24,13 @@ build_job:
     # - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
     - ls -l
     - cd ./docker-monolith
-    - docker build -t reddit:latest .
-    - docker images -a
-    - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
-    - docker tag reddit:latest $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
-    - docker push $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
-    - docker rmi reddit
+    - ls -l
+    - sudo docker build -t reddit:latest .
+    - sudo docker images -a
+    - sudo docker login -u $HUB_LOGIN -p $HUB_PASSWORD
+    - sudo docker tag reddit:latest $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
+    - sudo docker push $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
+    - sudo docker rmi reddit
 
 test_unit_job:
   stage: test
