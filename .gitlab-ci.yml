@@ -15,9 +15,13 @@ before_script:
   - bundle install
 
 build_job:
+  image: docker:latest
   stage: build
   script:
-    - echo 'Building and publishing reddit'
+    - echo 'Getting, building and publishing reddit'
+    - sudo apt update && install git -y
+    - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
+    - cd ./docker-monolith
     - docker build -t reddit:latest .
     - docker images -a
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
