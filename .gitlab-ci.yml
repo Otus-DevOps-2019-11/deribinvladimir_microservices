@@ -15,7 +15,7 @@ before_script:
   - bundle install
 
 build_job:
-  image: docker:latest
+  image: docker:stable-dind
   stage: build
   before_script:
     - echo 'Getting, building and publishing reddit'
