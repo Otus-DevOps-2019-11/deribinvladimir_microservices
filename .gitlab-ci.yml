@@ -23,7 +23,7 @@ build_job:
     # - sudo apt update && install git -y
   script:
     - docker info
-    - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
+    - git clone -b docker-4 https://github.com/Otus-DevOps-2019-11/deribinvladimir_microservices.git
     - ls -l
     - cd ./docker-monolith
     - ls -l
