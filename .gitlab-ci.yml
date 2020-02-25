@@ -1,5 +1,5 @@
 # image: docker:stable-dind
-# image: ruby:2.4.2
+image: ruby:2.4.2
 
 stages:
   - build
@@ -16,12 +16,13 @@ before_script:
   - bundle install
 
 build_job:
-#  image: docker:19.03.1-dind
+  image: docker:19.03.1-dind
   stage: build
   before_script:
     - echo 'Getting, building and publishing reddit'
     # - sudo apt update && install git -y
   script:
+    - docker info
     - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
     - ls -l
     - cd ./docker-monolith
