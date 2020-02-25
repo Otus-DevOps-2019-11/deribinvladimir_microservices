@@ -26,13 +26,13 @@ build_job:
     - ls -l
     - cd ./docker-monolith
     - ls -l
-    - docker info
-    - docker build -t reddit:latest .
-    - docker images -a
-    - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
-    - docker tag reddit:latest $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
-    - docker push $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
-    - docker rmi reddit
+    - docker --privileged info
+    - docker --privileged build -t reddit:latest .
+    - docker --privileged images -a
+    - docker --privileged login -u $HUB_LOGIN -p $HUB_PASSWORD
+    - docker --privileged tag reddit:latest $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
+    - docker --privileged push $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
+    - docker --privileged rmi reddit
 
 test_unit_job:
   stage: test
