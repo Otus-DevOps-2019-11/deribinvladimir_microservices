@@ -1,4 +1,5 @@
-image: ruby:2.4.2
+image: docker:stable-dind
+# image: ruby:2.4.2
 
 stages:
   - build
@@ -15,7 +16,7 @@ before_script:
   - bundle install
 
 build_job:
-  image: docker:19.03.1-dind
+#  image: docker:19.03.1-dind
   stage: build
   before_script:
     - echo 'Getting, building and publishing reddit'
