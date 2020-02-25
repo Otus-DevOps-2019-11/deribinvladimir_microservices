@@ -19,9 +19,10 @@ build_job:
   stage: build
   before_script:
     - echo 'Getting, building and publishing reddit'
-    - sudo apt update && install git -y
+    # - sudo apt update && install git -y
   script:
-    - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
+    # - git clone -b gitlab-ci-1 http://35.246.234.248/homework/example.git
+    - ls -l
     - cd ./docker-monolith
     - docker build -t reddit:latest .
     - docker images -a
