@@ -18,7 +18,7 @@ build_job:
   stage: build
   script:
     - echo 'Building and publishing docker-monolith'
-    - cd docker-monolith
+    - cd ../docker-monolith
     - docker build -t reddit:latest .
     - docker images -a
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
