@@ -53,7 +53,7 @@ deploy_dev_job:
   script:
     - echo 'Deploy'
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
-    - docker inspect $HUB_LOGIN/otus-reddit:latest
+    - docker inspect $HUB_LOGIN/otus-reddit:2.$CI_JOB_ID
   environment:
     name: dev
     url: http://dev.example.com
