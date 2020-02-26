@@ -21,7 +21,7 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
-  - apt update && apt install -y ruby-full ruby-bundler build-essential
+  - apt-get update && apt-get install -y ruby-full ruby-bundler build-essential
   - cd reddit
   - bundle install
 
