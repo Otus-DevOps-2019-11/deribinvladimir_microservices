@@ -24,8 +24,8 @@ variables:
 before_script:
 #  - apt-get update && apt-get install -y ruby-full ruby-bundler build-essential
   - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
-  - cd reddit
-  - bundle install
+  # - cd reddit
+  # - bundle install
 
 build_job:
   #image: docker:19.03.1-dind
@@ -37,6 +37,7 @@ build_job:
     - ls -l
    # - cd ./docker-monolith
    # - ls -l
+    - cd ./reddit
     - docker info
     - docker build -t reddit:latest .
     - docker images -a
@@ -46,10 +47,13 @@ build_job:
     - docker rmi reddit
 
 test_unit_job:
+  image: ruby:2.4.2
   stage: test
   services:
     - mongo:latest
   script:
+    - cd reddit
+    - bundle install
     - ruby simpletest.rb
     - echo 'Unit tests'
 
