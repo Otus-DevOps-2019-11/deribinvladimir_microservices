@@ -18,20 +18,22 @@ stages:
   - stage
   - production
 
-before_script:
+#before_script:
 #  - apt-get update && apt-get install -y ruby-full ruby-bundler build-essential
-  - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
-  - docker info
+#  - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
+#  - docker info
   # - cd reddit
   # - bundle install
 
 build_job:
   #image: docker:19.03.1-dind
   stage: build
-  #before_script:
-  #  - echo 'Getting, building and publishing docker-monolith'
-  script:
+  before_script:
+    - echo 'Getting, building and publishing reddit'
     - docker info
+    - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
+  script:
+    #- docker info
     - ls -l
    # - cd ./docker-monolith
    # - ls -l
