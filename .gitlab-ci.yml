@@ -1,13 +1,13 @@
 image: docker:19.03.1
 
  # Pinning the right Docker version for the service also
-#services:
-#  - docker:19.03.1-dind
+services:
+  - docker:19.03.1-dind
 
 variables:
   DOCKER_DRIVER: overlay2
   DATABASE_URL: 'mongodb://mongo/user_posts'
-#  DOCKER_TLS_CERTDIR: ""
+  DOCKER_TLS_CERTDIR: ""
 
 # image: docker:stable-dind
 
@@ -28,8 +28,6 @@ stages:
 
 build_job:
   #image: docker:19.03.1-dind
-  services:
-    - docker:19.03.1-dind
   stage: build
   before_script:
     - echo 'Getting, building and publishing reddit'
@@ -66,8 +64,6 @@ test_integration_job:
     - echo 'Integration tests'
 
 deploy_dev_job:
-  services:
-    - docker:19.03.1-dind
   stage: review
   before_script:
     - docker info
