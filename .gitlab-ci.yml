@@ -1,4 +1,5 @@
-image: docker:19.03.1
+image: ruby:2.4.2
+# image: docker:19.03.1
 
  # Pinning the right Docker version for the service also
 services:
@@ -8,7 +9,7 @@ variables:
   DOCKER_DRIVER: overlay2
 
 # image: docker:stable-dind
-# image: ruby:2.4.2
+
 
 stages:
   - build
@@ -21,7 +22,8 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
-  - apt-get update && apt-get install -y ruby-full ruby-bundler build-essential
+#  - apt-get update && apt-get install -y ruby-full ruby-bundler build-essential
+  - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
   - cd reddit
   - bundle install
 
@@ -38,7 +40,7 @@ build_job:
     - docker info
     - docker build -t reddit:latest .
     - docker images -a
-    - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
+   # - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     - docker tag reddit:latest $HUB_LOGIN/otus-reddit:3.$CI_PIPELINE_ID
     - docker push $HUB_LOGIN/otus-reddit:3.$CI_PIPELINE_ID
     - docker rmi reddit
@@ -60,7 +62,7 @@ deploy_dev_job:
   stage: review
   script:
     - echo 'Deploy'
-    - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
+    # - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     - docker inspect $HUB_LOGIN/otus-reddit:3.$CI_PIPELINE_ID
     #- if docker ps -a | grep reddit; then docker stop reddit && docker rm reddit; fi
     #- docker run --name reddit -d -p 9292:9292 $HUB_LOGIN/otus-reddit:2.$CI_PIPELINE_ID
