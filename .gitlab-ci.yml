@@ -1,5 +1,5 @@
-image: ruby:2.4.2
-# image: docker:19.03.1
+# image: ruby:2.4.2
+image: docker:19.03.1
 
  # Pinning the right Docker version for the service also
 services:
