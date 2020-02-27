@@ -5,7 +5,7 @@ COPY . /app
 
 WORKDIR $APP_HOME
 RUN bundle install
-ENV DATABASE_URL mongodb://mongo
+ENV DATABASE_URL 127.0.0.1
 EXPOSE 9292
 
 CMD ["puma"]
