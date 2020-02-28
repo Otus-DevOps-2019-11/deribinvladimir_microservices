@@ -77,6 +77,7 @@ deploy_dev_job:
     - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     - sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io
     - sudo groupadd docker && sudo usermod -aG docker $USER
+    - sudo service docker restart
     - sudo docker info
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     # install gcloud auth
