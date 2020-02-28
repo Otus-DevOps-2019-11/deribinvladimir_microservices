@@ -72,16 +72,16 @@ deploy_dev_job:
     DOCKER_TLS_CERTDIR: ""
   before_script:
     # install docker
-    - apt-get update && apt-get install -y sudo apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
-    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    - apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
-    - groupadd docker && sudo usermod -aG docker $USER
+    - sudo apt-get update && apt-get install -y sudo apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    - sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+    - sudo groupadd docker && sudo usermod -aG docker $USER
     - sudo docker info
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     # install gcloud auth
     # try to install gce sdk by one string
-    - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y
+    - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && sudo apt-get update -y && sudo apt-get install google-cloud-sdk -y
     # Add the Cloud SDK distribution URI as a package source
     #- echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
     # Import the Google Cloud Platform public key
@@ -89,12 +89,12 @@ deploy_dev_job:
     # Update the package list and install the Cloud SDK
     #- sudo apt-get update && sudo apt-get install google-cloud-sdk
     # create file with creds
-    - echo $GCP_SERVICE_KEY | tee serviceacc.json
+    - echo $GCP_SERVICE_KEY | sudo tee serviceacc.json
     - gcloud auth activate-service-account $GCP_PROJECT_ID --key-file=serviceacc.json
 
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip -O /tmp/terraform.zip
-    - unzip -o -d /usr/local/bin/ /tmp/terraform.zip
+    - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
     - python get-pip.py --user
     - pip install --user ansible
     - terraform --version
