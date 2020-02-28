@@ -75,10 +75,12 @@ deploy_dev_job:
     - apt-get update && apt-get install -y sudo apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
     - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    - sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-    - sudo groupadd docker && sudo usermod -aG docker $USER
-    - sudo service docker restart
-    - sudo docker info
+    - sudo apt-get update && sudo apt-get install -y docker-ce
+    # docker-ce-cli containerd.io
+    - sudo usermod -aG docker $USER
+    - sudo systemctl docker start
+    #- sudo service docker restart
+    - docker info
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     # install gcloud auth
     # try to install gce sdk by one string
