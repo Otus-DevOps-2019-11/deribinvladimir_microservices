@@ -68,9 +68,11 @@ test_integration_job:
 deploy_dev_job:
   image: ubuntu:16.04
   stage: review
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
   before_script:
     # install docker
-    - apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    - apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
     - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
     - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     - apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
@@ -78,7 +80,6 @@ deploy_dev_job:
     - docker info
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     # install gcloud auth
-    - apt-get update && apt-get install -y apt-transport-https ca-certificates gnupg
     # try to install gce sdk by one string
     - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y
     # Add the Cloud SDK distribution URI as a package source
