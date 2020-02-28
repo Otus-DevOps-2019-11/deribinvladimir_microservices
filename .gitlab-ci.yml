@@ -93,7 +93,7 @@ deploy_dev_job:
     #- sudo apt-get update && sudo apt-get install google-cloud-sdk
     # create file with creds
     - echo $GCP_SERVICE_KEY | sudo tee serviceacc.json
-    - gcloud auth activate-service-account $GCP_PROJECT_ID --key-file=serviceacc.json
+    - gcloud auth activate-service-account $GCP_ACC_NAME --key-file=serviceacc.json
 
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip -O /tmp/terraform.zip
