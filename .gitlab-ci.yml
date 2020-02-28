@@ -71,10 +71,10 @@ deploy_dev_job:
   before_script:
     # install docker
     - apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
     - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     - apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
-    - sudo groupadd docker && sudo usermod -aG docker $USER
+    - groupadd docker && sudo usermod -aG docker $USER
     - docker info
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     # install gcloud auth
@@ -93,7 +93,7 @@ deploy_dev_job:
 
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip -O /tmp/terraform.zip
-    - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
+    - unzip -o -d /usr/local/bin/ /tmp/terraform.zip
     - python get-pip.py --user
     - pip install --user ansible
     - terraform --version
