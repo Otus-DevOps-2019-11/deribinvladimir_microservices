@@ -69,15 +69,15 @@ deploy_dev_job:
   image: ubuntu:16.04
   stage: review
   variables:
-    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_TLS_CERTDIR: ""
   before_script:
     # install docker
-    - apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
+    - apt-get update && apt-get install -y sudo apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
     - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
     - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     - apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
     - groupadd docker && sudo usermod -aG docker $USER
-    - docker info
+    - sudo docker info
     - docker login -u $HUB_LOGIN -p $HUB_PASSWORD
     # install gcloud auth
     # try to install gce sdk by one string
