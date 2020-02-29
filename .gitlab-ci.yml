@@ -98,7 +98,7 @@ deploy_dev_job:
     - gcloud auth list
 
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    - wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip -O /tmp/terraform.zip
+    - wget https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip -O /tmp/terraform.zip
     - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
     - python get-pip.py --user
     - pip install --user ansible
@@ -110,7 +110,7 @@ deploy_dev_job:
     - echo 'Creating instances'
     - cd ./docker-monolith/terraform
     - terraform init
-    - terraform apply -auto-approve
+    - terraform apply -auto-approve -var-file terraform.tfvars.example
 
     - echo 'Provisioning docker and container'
     - cd ../ansible
