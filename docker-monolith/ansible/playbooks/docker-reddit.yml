@@ -1,12 +1,23 @@
 ---
 # https://docs.docker.com/install/linux/docker-ce/ubuntu/
 - name: Prepare docker-host for packer
-  hosts: all
+  hosts: app
+  vars:
+    hub_login: username
+    hub_password: password
+    version: latest
+
   become: yes
   tasks:
 
   - name: Update Python
     apt: name=python state=latest
+
+  - name: Install python-pip
+    apt: name=python-pip state=latest
+
+  - name: Install docker-py
+    pip: name=docker-py state=latest
 
   - name: Install packages to allow https for repos
     apt:
@@ -44,16 +55,16 @@
       append: yes
 
   # https://success.docker.com/article/how-do-i-enable-the-remote-api-for-dockerd
-  - name: Create directory for docker override config, if it does not exist
-    file:
-      path: /etc/systemd/system/docker.service.d
-      state: directory
+  #- name: Create directory for docker override config, if it does not exist
+  #  file:
+  #    path: /etc/systemd/system/docker.service.d
+  #    state: directory
       # mode: '0755'
 
-  - name: Add override config to set docker listen on 2376 port
-    copy:
-      src: files/dockeroverride.conf
-      dest: /etc/systemd/system/docker.service.d/dockeroverride.conf
+  #- name: Add override config to set docker listen on 2376 port
+  #  copy:
+  #    src: files/dockeroverride.conf
+  #    dest: /etc/systemd/system/docker.service.d/dockeroverride.conf
 
   - name: Configure Docker to start on boot
     systemd: name=docker enabled=yes
@@ -64,7 +75,23 @@
       daemon_reload: yes
       name: docker
 
-#  - name: Pull our reddit image
-#    docker_image:
-#      name: deribinvladimir/otus-reddit:1.0
-#      source: pull
+  - name: Log in to docker hub
+    docker_login:
+      username: "{{  hub_login  }}"
+      password: "{{  hub_password }}"
+
+  - name: Pull our reddit image
+    docker_image:
+      name: deribinvladimir/otus-reddit:{{ version  }}
+      source: pull
+
+  - name: Run docker container reddit
+    docker_container:
+      name: reddit
+      state: started
+      image: deribinvladimir/otus-reddit:{{ version  }}
+      network_mode: host
+      exposed_ports:
+        - "9292"
+      ports:
+        - "9292:9292"

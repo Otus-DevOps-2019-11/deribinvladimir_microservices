@@ -107,7 +107,15 @@ deploy_dev_job:
     - ls -l
 
   script:
-    - echo 'Deploy'
+    - echo 'Creating instances'
+    - cd ./terraform
+    - terraform init
+    - terraform apply -auto-approve
+
+    - echo 'Provisioning docker and container'
+    - cd ../ansible
+    - ansible-inventory --list
+    - ansible-playbook playbooks/docker-reddit.yml --extra-vars '{"version":"2.$CI_PIPELINE_ID","hub_login":"$HUB_LOGIN","hub_password":"$HUB_PASSWORD"}'
     #- docker pull $HUB_LOGIN/otus-reddit:2.$CI_PIPELINE_ID
     #- docker inspect $HUB_LOGIN/otus-reddit:2.$CI_PIPELINE_ID
     #- docker ps

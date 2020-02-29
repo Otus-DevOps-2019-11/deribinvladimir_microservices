@@ -26,5 +26,5 @@ variable instance_count {
 
 variable app_disk_image {
   description = "Docker host image for reddit app"
-  default     = "docker-host-base"
+  default     = "ubuntu-1604-lts"
 }

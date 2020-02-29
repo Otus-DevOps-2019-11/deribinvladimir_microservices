@@ -15,7 +15,7 @@ variable private_key_path {
 
 variable app_disk_image {
   description = "Disk image for reddit app"
-  default     = "docker-host-base"
+  default     = "ubuntu-1604-lts"
 }
 
 variable instance_count {

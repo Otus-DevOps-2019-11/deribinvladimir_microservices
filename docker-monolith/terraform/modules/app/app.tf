@@ -4,7 +4,7 @@ resource "google_compute_instance" "app" {
   count        = var.instance_count
   machine_type = "g1-small"
   zone         = var.zone
-  tags         = ["reddit-app,docker-host"]
+  tags         = ["reddit-app","docker-for-reddit","http-server","https-server"]
   boot_disk {
     initialize_params { image = var.app_disk_image }
   }
