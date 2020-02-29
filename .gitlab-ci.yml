@@ -73,7 +73,7 @@ deploy_dev_job:
     DOCKER_DRIVER: overlay2
   before_script:
     # install docker
-    - apt-get update && apt-get install -y sudo wget apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
+    - apt-get update && apt-get install -y sudo wget unzip apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common
     #- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     #- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     #- sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io
@@ -94,6 +94,7 @@ deploy_dev_job:
     # create file with creds
     - echo $GCP_SERVICE_KEY | sudo tee serviceacc.json
     - gcloud auth activate-service-account --key-file=serviceacc.json
+    - gcloud auth list
 
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip -O /tmp/terraform.zip
