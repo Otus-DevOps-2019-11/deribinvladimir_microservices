@@ -1,12 +1,13 @@
 plugin: gcp_compute
 projects:
-  #- docker-267019
-  - versatile-hull-262415
+  - docker-267019
+  #- versatile-hull-262415
 zones:
   - europe-west3-a
 auth_kind: serviceaccount
+service_account_file: ../../serviceacc.json
 #service_account_file: ~/.config/gcloud/docker-267019-serviceaccount.json
-service_account_file: ~/.config/gcloud/versatile-hull-262415-serviceaccount.json
+#service_account_file: ~/.config/gcloud/versatile-hull-262415-serviceaccount.json
 groups:
   app: "'docker-host' in name"
   # "'docker-host' in (tags['items']|list)"

@@ -110,6 +110,7 @@ deploy_dev_job:
     - echo 'Creating instances'
     - cd ./docker-monolith/terraform
     - terraform init
+    - terraform plan
     - terraform apply -auto-approve -var-file terraform.tfvars.example
 
     - echo 'Provisioning docker and container'
