@@ -94,7 +94,7 @@ deploy_dev_job:
     # create file with creds
     - export PATH=/root/.local/bin:$PATH
     - echo $GCP_SERVICE_KEY | sudo tee serviceacc.json
-    - gcloud auth activate-service-account --key-file=serviceacc.json
+    - gcloud auth activate-service-account --key-file=serviceacc.json --project=versatile-hull-262415
     - gcloud auth list
 
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
