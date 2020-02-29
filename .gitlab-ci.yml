@@ -108,7 +108,7 @@ deploy_dev_job:
     - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
     - python get-pip.py --user
     - pip install --user ansible
-    - pip install --user google-auth
+    - pip install google-auth
     - terraform --version
     - ansible --version
     - ls -l
