@@ -108,7 +108,7 @@ deploy_dev_job:
 
   script:
     - echo 'Creating instances'
-    - cd ./terraform
+    - cd ./docker-monolith/terraform
     - terraform init
     - terraform apply -auto-approve
 
