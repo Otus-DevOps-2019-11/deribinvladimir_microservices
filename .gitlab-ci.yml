@@ -92,6 +92,7 @@ deploy_dev_job:
     # Update the package list and install the Cloud SDK
     #- sudo apt-get update && sudo apt-get install google-cloud-sdk
     # create file with creds
+    - export PATH=/root/.local/bin:$PATH
     - echo $GCP_SERVICE_KEY | sudo tee serviceacc.json
     - gcloud auth activate-service-account --key-file=serviceacc.json
     - gcloud auth list
