@@ -1,6 +1,7 @@
 ---
 - name: pack reddit-app into docker
   hosts: all
+  gather_facts: no
   become: true
 
   tasks:

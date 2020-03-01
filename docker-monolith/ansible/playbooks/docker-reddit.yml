@@ -2,6 +2,7 @@
 # https://docs.docker.com/install/linux/docker-ce/ubuntu/
 - name: Prepare docker-host for packer
   hosts: app
+  gather_facts: no
   vars:
     hub_login: username
     hub_password: password
