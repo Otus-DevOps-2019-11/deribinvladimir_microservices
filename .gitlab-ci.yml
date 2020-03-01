@@ -123,7 +123,7 @@ deploy_dev_job:
     - echo 'Provisioning docker and container'
     - cd ../ansible
     - ansible-inventory --list
-    - ansible-playbook playbooks/docker-reddit.yml -vvv --extra-vars '{"version":"2.$CI_PIPELINE_ID","hub_login":"$HUB_LOGIN","hub_password":"$HUB_PASSWORD"}'
+    - ansible-playbook playbooks/docker-reddit.yml -vvv --extra-vars '{"version":"2.91","hub_login":"$HUB_LOGIN","hub_password":"$HUB_PASSWORD"}'
     #- docker pull $HUB_LOGIN/otus-reddit:2.$CI_PIPELINE_ID
     #- docker inspect $HUB_LOGIN/otus-reddit:2.$CI_PIPELINE_ID
     #- docker ps

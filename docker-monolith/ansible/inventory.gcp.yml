@@ -5,8 +5,8 @@ projects:
 zones:
   - europe-west3-a
 auth_kind: serviceaccount
-#service_account_file: /builds/homework/example/serviceacc.json
-service_account_file: ~/.config/gcloud/docker-267019-serviceaccount.json
+service_account_file: /builds/homework/example/serviceacc.json
+#service_account_file: ~/.config/gcloud/docker-267019-serviceaccount.json
 #service_account_file: ~/.config/gcloud/versatile-hull-262415-serviceaccount.json
 groups:
   app: "'docker-host' in name"
