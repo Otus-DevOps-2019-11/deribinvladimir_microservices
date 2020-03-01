@@ -106,7 +106,7 @@ deploy_dev_job:
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - wget https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip -O /tmp/terraform.zip
     - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
-    - python get-pip.py
+    - python3 get-pip.py
     #- pip install ansible
     - pip install requests google-auth ansible
     - terraform --version
@@ -116,9 +116,9 @@ deploy_dev_job:
   script:
     - echo 'Creating instances'
     - cd ./docker-monolith/terraform
-    #- terraform init
-    #- terraform plan
-    #- terraform apply -auto-approve -var-file terraform.tfvars.example
+    - terraform init
+    - terraform plan
+    - terraform apply -auto-approve -var-file terraform.tfvars.example
 
     - echo 'Provisioning docker and container'
     - cd ../ansible
