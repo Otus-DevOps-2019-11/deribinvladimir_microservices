@@ -108,7 +108,7 @@ deploy_dev_job:
     - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
     - python get-pip.py --user
     - pip install --user ansible
-    - pip install google-auth
+    - pip install --user requests google-auth
     - terraform --version
     - ansible --version
     - ls -l
@@ -116,9 +116,9 @@ deploy_dev_job:
   script:
     - echo 'Creating instances'
     - cd ./docker-monolith/terraform
-    - terraform init
-    - terraform plan
-    - terraform apply -auto-approve -var-file terraform.tfvars.example
+    #- terraform init
+    #- terraform plan
+    #- terraform apply -auto-approve -var-file terraform.tfvars.example
 
     - echo 'Provisioning docker and container'
     - cd ../ansible
