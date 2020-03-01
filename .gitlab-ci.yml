@@ -106,9 +106,9 @@ deploy_dev_job:
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - wget https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip -O /tmp/terraform.zip
     - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
-    - python get-pip.py --user
-    - pip install --user ansible
-    - pip install --user requests google-auth
+    - python get-pip.py
+    #- pip install ansible
+    - pip install requests google-auth ansible
     - terraform --version
     - ansible --version
     - ls -l
