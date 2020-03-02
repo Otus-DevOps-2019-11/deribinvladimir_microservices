@@ -85,13 +85,6 @@ deploy_dev_job:
     # install gcloud auth
     # try to install gce sdk by one string
     - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && sudo apt-get update -y && sudo apt-get install google-cloud-sdk -y
-    # Add the Cloud SDK distribution URI as a package source
-    #- echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-    # Import the Google Cloud Platform public key
-    #- curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-    # Update the package list and install the Cloud SDK
-    #- sudo apt-get update && sudo apt-get install google-cloud-sdk
-    # create file with creds
     - export PATH=/root/.local/bin:$PATH
     - echo $GCP_SERVICE_KEY | sudo tee serviceacc.json
     - pwd
@@ -107,7 +100,6 @@ deploy_dev_job:
     - wget https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip -O /tmp/terraform.zip
     - sudo unzip -o -d /usr/local/bin/ /tmp/terraform.zip
     - python get-pip.py
-    #- pip install ansible
     - pip install requests google-auth ansible
     - terraform --version
     - ansible --version
@@ -123,7 +115,7 @@ deploy_dev_job:
     - echo 'Provisioning docker and container'
     - cd ../ansible
     - ansible-inventory --list
-    - ansible-playbook playbooks/docker-reddit.yml -vvv --extra-vars '{"version":"2.91","hub_login":"$HUB_LOGIN","hub_password":"$HUB_PASSWORD"}'
+    - ansible-playbook playbooks/docker-reddit.yml -vvv --extra-vars '{"version":"2.$CI_PIPELINE_ID","hub_login":"$HUB_LOGIN","hub_password":"$HUB_PASSWORD"}'
     #- docker pull $HUB_LOGIN/otus-reddit:2.$CI_PIPELINE_ID
     #- docker inspect $HUB_LOGIN/otus-reddit:2.$CI_PIPELINE_ID
     #- docker ps
