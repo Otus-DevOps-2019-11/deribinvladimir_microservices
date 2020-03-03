@@ -1,0 +1,71 @@
+---
+- name: Add gitlab runner
+  hosts: runnerapp
+  gather_facts: no
+  become: true
+
+  tasks:
+  - name: Install packages to allow https for repos
+    apt:
+      name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg', 'gnupg2' ,'software-properties-common']
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+
+  - name: Update Python
+    apt:
+      name: python
+      state: latest
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Install python-pip
+    apt:
+      name: python-pip
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Install python-gitlab 1.12.1
+    pip:
+      name: python-gitlab<=1.12.1
+
+  - name: Add gitlab runner GPG key
+    apt_key:
+      url: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+      state: present
+
+
+  - name: Add gitlab-runner repository
+    apt_repository:
+      repo: deb https://packages.gitlab.com/runner/gitlab-runner/ubuntu/ xenial main
+      state: present
+      update_cache: yes
+      #filename: gitlab-runner
+
+  - name: Install gitlab-runner
+    apt:
+      name: gitlab-runner
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+  - name: "Register runner"
+    become: false
+    gitlab_runner:
+      api_url: "{{ gitlab_addr }}"
+      api_token: "{{ access_token }}"
+      registration_token: "{{ reg_token }}"
+      description: "{{ inventory_hostname }}"
+      state: present
+      active: True
+      run_untagged: True
+      locked: False
+      validate_certs: no
+
+  - name: Enable runner service
+    service:
+      name: gitlab-runner
+      enabled: yes
+      state: started
