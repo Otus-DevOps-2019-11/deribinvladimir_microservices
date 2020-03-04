@@ -2,6 +2,30 @@
 
 ## deribinvladimir_microservices
 
+### gitlab-ci-1
+###### What's been done during this homework:
+- gitlab ci was installed and prepared to use
+- ci/cd pipeline was created to build, test and deploy services with different envs, include dynamic ones
+- build of docker containers in dind mode was tested
+- \* docker container creation was added to build step for reddit app
+- \* deploy of created container was tested to server with gitlab ci using gitlab runner in shell executor mode
+- \* deploy of created container was tested to external instance using terraform + ansible with dynamic inventory
+- \* integration for our gitlab ci with our personal slack channel was added: https://devops-team-otus.slack.com/archives/CBJESDZPH
+- \* automation of creation many instances with runner in shell executor mode using terraform and ansible was created and tested
+- \* automation of creation many instances with runner in docker mode in docker container using terraform and ansible was created and tested
+###### Additional resources used during this homework:
+- gitlab ci [pipeline yaml structure](https://docs.gitlab.com/ee/ci/yaml/#before_script-and-after_script)
+- gitlab ci [predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html) to use in pipelines
+- how to authorize in gcp with [terraform](https://www.terraform.io/docs/providers/google/index.html) ([getting started](https://www.terraform.io/docs/providers/google/guides/getting_started.html) + [manual from google](https://cloud.google.com/community/tutorials/getting-started-on-gcp-with-terraform)) and [ansible (in pipelines and ansible.cfg)](https://docs.ansible.com/ansible/latest/scenario_guides/guide_gce.html) using gcp service accoung
+- how to [run](https://docs.gitlab.com/runner/install/docker.html) and [register](https://docs.gitlab.com/runner/register/index.html#docker) [gitlab runner](https://gitlab.com/gitlab-org/gitlab-runner/#installation) using docker
+- [how to build docker images with gitlab runner usign different runner modes](https://docs.gitlab.com/ce/ci/docker/using_docker_build.html)
+- [how to pass variables to ansible playbook](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+- modules for ansible to work with docker: [docker_container_module](https://docs.ansible.com/ansible/latest/modules/docker_container_module.html), [docker_image_module](https://docs.ansible.com/ansible/latest/modules/docker_image_module.html)
+- [module for ansible to work with gitlub-runner](https://docs.ansible.com/ansible/latest/modules/gitlab_runner_module.html)
+- ansible galaxy role to work with gitlub runner: [riemers.gitlab-runner](https://galaxy.ansible.com/riemers/gitlab-runner)
+- ansible [useful special variables](https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html) to use it in playbooks during privisioning
+- [docker-in-docker - pro and contra](https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/)
+
 ### docker-4
 ###### What's been done during this homework:
 - different network drivers were tested and compared using joffotron/docker-net-tools image

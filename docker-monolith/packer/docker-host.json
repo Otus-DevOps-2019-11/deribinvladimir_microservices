@@ -16,11 +16,11 @@
         {
             "type": "googlecompute",
             "project_id": "{{ user `project_id` }}",
-            "image_name": "docker-host-base-{{timestamp}}",
-            "image_family": "docker-host-base",
+            "image_name": "docker-for-reddit-base-{{timestamp}}",
+            "image_family": "docker-for-reddit-base",
             "source_image_family": "{{ user `source_image_family` }}",
             "disk_size": "{{ user `disk_size` }}",
-            "image_description": "Image for docker-host",
+            "image_description": "Image for docker-for-reddit",
             "zone": "{{ user `zone` }}",
             "ssh_username": "{{ user `ssh_username` }}",
             "machine_type": "{{ user `machine_type` }}",
@@ -31,7 +31,7 @@
     "provisioners": [
     {
         "type": "ansible",
-        "playbook_file": "ansible/playbooks/docker-host.yml",
+        "playbook_file": "../ansible/playbooks/docker-host.yml",
         "extra_arguments": ["--tags","docker-host"],
         "ansible_env_vars": ["ANSIBLE_ROLES_PATH=~/deribinvladimir_microservices/docker-monolith/ansible/roles"]
     }

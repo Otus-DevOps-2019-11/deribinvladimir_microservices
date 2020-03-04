@@ -1,6 +1,6 @@
 resource "google_compute_instance" "app" {
 
-  name         = "docker-host-${count.index+1}"
+  name         = "docker-runner-${count.index+1}"
   count        = var.instance_count
   machine_type = "g1-small"
   zone         = var.zone

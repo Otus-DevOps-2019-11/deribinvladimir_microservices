@@ -5,15 +5,19 @@
   become: yes
   tasks:
 
+  - name: Update Python
+    apt: name=python state=latest
+
   - name: Install packages to allow https for repos
     apt:
       name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2' ,'software-properties-common']
       state: present
-      install_recommend: yes
+      install_recommends: yes
       update_cache: yes
 
   - name: Add Docker GPG key
-    apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
       state: present
 
   - name: Add Docker APT repository

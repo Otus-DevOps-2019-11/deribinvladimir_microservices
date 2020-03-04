@@ -1,0 +1,113 @@
+---
+# https://docs.docker.com/install/linux/docker-ce/ubuntu/
+- name: Prepare docker-host for packer
+  hosts: app
+  # gather_facts: no
+  vars:
+    hub_login: username
+    hub_password: password
+    version: latest
+
+  become: yes
+  tasks:
+
+  - name: Update Python
+    apt:
+      name: python
+      state: latest
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Install python-pip
+    apt:
+      name: python-pip
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Install python3-pip
+    apt:
+      name: python3-pip
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Install docker-py
+    pip: name=docker-py state=latest
+
+  - name: Install packages to allow https for repos
+    apt:
+      name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2' ,'software-properties-common']
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Add Docker GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      state: present
+      update_cache: yes
+
+  - name: Install Docker
+    apt:
+      name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Add docker group
+    group:
+      name: docker
+      state: present
+
+  - name: Add appuser to docker group
+    user:
+      name: appuser
+      groups: docker
+      append: yes
+
+  # https://success.docker.com/article/how-do-i-enable-the-remote-api-for-dockerd
+  #- name: Create directory for docker override config, if it does not exist
+  #  file:
+  #    path: /etc/systemd/system/docker.service.d
+  #    state: directory
+      # mode: '0755'
+
+  #- name: Add override config to set docker listen on 2376 port
+  #  copy:
+  #    src: files/dockeroverride.conf
+  #    dest: /etc/systemd/system/docker.service.d/dockeroverride.conf
+
+  - name: Configure Docker to start on boot
+    systemd: name=docker enabled=yes
+
+  - name: restart docker and issue daemon-reload to pick up config changes
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: docker
+
+  - name: Log in to docker hub
+    docker_login:
+      username: "{{  hub_login  }}"
+      password: "{{  hub_password }}"
+
+  - name: Pull our reddit image
+    docker_image:
+      name: deribinvladimir/otus-reddit:{{ version  }}
+      source: pull
+
+  - name: Run docker container reddit
+    docker_container:
+      name: reddit
+      state: started
+      image: deribinvladimir/otus-reddit:{{ version  }}
+      network_mode: host
+      exposed_ports:
+        - "9292"
+      ports:
+        - "9292:9292"

@@ -1,0 +1,87 @@
+---
+# https://docs.docker.com/install/linux/docker-ce/ubuntu/
+- name: Prepare docker-runner for gitlab runner in docker container
+  hosts: dockerrunners
+  become: yes
+  tasks:
+
+  - name: Update Python
+    apt: name=python state=latest install_recommends=yes update_cache=yes
+
+  - name: Install python-pip
+    apt: name=python-pip state=latest install_recommends=yes update_cache=yes
+
+  - name: Install python-gitlab 1.12.1
+    pip:
+      name: python-gitlab<=1.12.1
+
+  - name: Install Docker SDK for Python
+    pip: name=docker state=present
+
+  - name: Install packages to allow https for repos
+    apt:
+      name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg', 'gnupg2' ,'software-properties-common']
+      state: present
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Add Docker GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      state: present
+      update_cache: yes
+
+  - name: Install Docker
+    apt:
+      name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+      install_recommends: yes
+      update_cache: yes
+
+  - name: Add docker group
+    group:
+      name: docker
+      state: present
+
+#  - name: Add user to docker group
+#    user:
+#      name: $USER
+#      groups: docker
+#      append: yes
+
+  - name: Configure Docker to start on boot
+    systemd: name=docker enabled=yes
+
+  - name: restart docker and issue daemon-reload to pick up config changes
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: docker
+
+  - name: Pull our runner image
+    docker_image:
+      name: gitlab/gitlab-runner:latest
+      source: pull
+
+  - name: Register gitlab-runner container
+    docker_container:
+      name: gitlab-runner
+      image: gitlab/gitlab-runner:latest
+      command: register --non-interactive --executor "docker" --docker-image alpine:latest --url "{{ gitlab_addr }}" --registration-token "{{ reg_token }}" --description "{{ inventory_hostname }}" --tag-list "docker,aws" --run-untagged="true" --locked="false" --access-level="not_protected"
+      volumes:
+        - /srv/gitlab-runner/config:/etc/gitlab-runner
+
+  - name: Run gitlab-runner container
+    docker_container:
+      name: gitlab-runner
+      image: gitlab/gitlab-runner:latest
+      detach: yes
+      restart_policy: always
+      state: started
+      volumes:
+        - /srv/gitlab-runner/config:/etc/gitlab-runner
+        - /var/run/docker.sock:/var/run/docker.sock

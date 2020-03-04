@@ -25,6 +25,6 @@ variable instance_count {
 }
 
 variable app_disk_image {
-  description = "Docker host image for reddit app"
+  description = "Instance for shell gitlub runner"
   default     = "ubuntu-1604-lts"
 }

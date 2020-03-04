@@ -14,7 +14,7 @@ variable private_key_path {
 }
 
 variable app_disk_image {
-  description = "Disk image for reddit app"
+  description = "Disk image for shell gitlab runner"
   default     = "ubuntu-1604-lts"
 }
 
