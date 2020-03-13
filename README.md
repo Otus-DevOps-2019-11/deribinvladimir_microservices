@@ -2,6 +2,22 @@
 
 ## deribinvladimir_microservices
 
+### monitoring-1
+###### What's been done during this homework:
+- docker host was created and prometheus installed and explored onto it
+- new structure was created in repo and docker image was created with prometheus configuration to monitor our services
+- our service with prometheus were set up and explored with prometheus monitoring
+- habitation of prometheus was checked with diffrenet stopped services
+- node exporter was added to monitor our docker host
+- \* percona mongodb exporter was added to monitor mongodb state
+- \* google cloudprober was added to check availability of our services
+- \* Makefile was created to build and push images, and to stop/run our services
+###### Additional resources used during this homework:
+- [node_exporter](https://github.com/prometheus/node_exporter)
+- [precona mongodb exporter](https://github.com/percona/mongodb_exporter) and [how to use it](https://devconnected.com/mongodb-monitoring-with-grafana-prometheus/) [in different ways](https://dock.co.nz/post/build-mongodb-exporter-for-prometheus/)
+- [cloudprober on git](https://github.com/google/cloudprober), [cloudprober - getting started](https://cloudprober.org/getting-started/), [cloudprober images on docker hub](https://hub.docker.com/r/cloudprober/cloudprober/tags)
+- make/Makefile: [include](https://www.gnu.org/software/make/manual/html_node/Include.html), [variables in Makefile](https://www.opennet.ru/docs/RUS/linux_parallel/node257.html), [:makefile:4: *** missing separator.  Stop. error](https://stackoverflow.com/questions/16931770/makefile4-missing-separator-stop)
+
 ### gitlab-ci-1
 ###### What's been done during this homework:
 - gitlab ci was installed and prepared to use
