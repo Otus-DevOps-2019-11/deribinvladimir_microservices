@@ -113,6 +113,21 @@ services:
       - back_net
       - front_net
 
+  trickster:
+    image: tricksterio/trickster
+    environment:
+      - TRK_ORIGIN=http://prometheus:9090
+      - TRK_ORIGIN_TYPE=prometheus
+      - TRK_LOG_LEVEL=INFO
+      - TRK_PROXY_PORT=9890
+      - TRK_METRICS_PORT=9898
+    ports:
+      - 9890:9890
+      - 9898:9898
+    networks:
+      - back_net
+      - front_net
+
 volumes:
   prometheus_data:
   grafana_data:
