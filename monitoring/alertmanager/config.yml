@@ -11,10 +11,10 @@ route:
   receiver: 'slack-notifications'
   routes:
     - match:
-      severity: critical
+        severity: critical
       receiver: 'slack-notifications'
     - match:
-      severity: page
+        severity: page
       receiver: 'mail-notifications'
 
 receivers:
