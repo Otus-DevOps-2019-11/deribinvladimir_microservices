@@ -23,7 +23,10 @@ build_mongodbexporter:
 build_cloudprober:
 	cd ./monitoring/cloudprober && bash ./docker_build.sh
 
-build_all: build_post build_comment build_ui build_mongodbexporter build_cloudprober build_prometheus
+build_alertmanager:
+	cd ./monitoring/alertmanager && bash ./docker_build.sh
+
+build_all: build_post build_comment build_ui build_mongodbexporter build_cloudprober build_prometheus build_alertmanager
 
 ### start env ####
 
@@ -57,4 +60,7 @@ push_mongodbexporter:
 push_cloudprober:
 	docker push ${USER_NAME}/google-cloudprober:${VER_CLOUDPROBER}
 
-push_all: push_comment push_post push_ui push_mongodbexporter push_cloudprober push_prometheus
+push_alertmanager:
+	docker push ${USER_NAME}/alertmanager:latest
+
+push_all: push_comment push_post push_ui push_mongodbexporter push_cloudprober push_prometheus push_alertmanager
