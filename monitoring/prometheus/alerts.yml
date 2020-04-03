@@ -1,0 +1,26 @@
+groups:
+  - name: alert.rules
+    rules:
+    - alert: InstanceDown
+      expr: up == 0		# any PromQL request
+      for: 1m			# during what time (0 by default)
+      labels:			# additional labels
+        severity: page
+      annotations:
+        description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute'
+        summary: 'Instance {{ $labels.instance }} down'
+    - alert: HighResponseLatency
+      expr: histogram_quantile(0.95, sum(rate(ui_request_latency_seconds_bucket[5m])) by (le)) > 0.05
+      labels:
+        severity: page
+      annotations:
+        summary: "High response latency on {{ $labels.instance }}"
+        description: "{{ $labels.instance }} has a response latency (current value: {{ $value }}s)"
+    - alert: TimeoutsTooLong
+      expr: sum ((rate(total[5m]) - rate(success[5m])) / rate(total[5m])) > 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Timeouts on {{ $labels.instance }}"
+        description: "We have timeouts of some instances for more than 5 minutes"

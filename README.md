@@ -2,6 +2,36 @@
 
 ## deribinvladimir_microservices
 
+### monitoring-2
+###### What's been done during this homework:
+- docker-compose.yml was splitted to tow different parts - for apps and for monitoring services 
+- grafana was installed with some dashboards and different requests
+- business logic monitoring dashboard was added
+- alertmanager was added and integration set up with slack
+- Makefile was updated for new services
+- \* docker was configured to send metrics to prometheus and dashboard was added in grafana for it
+- \* telegraf was added to get metrics from docker host and appropriate dashboard was added to grafana
+- \* some metrics with using procentile were added
+- \* alertmanager was set up to send alerts through email too
+- \** grafana config was recreated to install and run our dashboards automatically during deploy
+- \** metrics to check ui time response and timeout of any our services were added
+- \** metrics from stackdriver were added
+- \*** trickster was added and grafana was reconfigured successfully to use trickster as data source
+###### Additional resources used during this homework:
+- [cAdvisor](https://github.com/google/cadvisor)
+- [Docker and system monitoring Dashboard by Thibaut Mottet](https://grafana.com/grafana/dashboards/893)
+- useful slack info: [how to check webhook](https://codex.so/slack-apps-tutorial)
+- docker experimental mode: [how to setup using daemon.josn](https://docs.docker.com/config/thirdparty/prometheus/) and [what to do if daemon.json not works](https://github.com/docker/for-linux/issues/165)
+- [Docker overview dashboard](https://grafana.com/grafana/dashboards/1229)
+- telegraf: [docker hub](https://hub.docker.com/_/telegraf), [how to configure](https://github.com/influxdata/telegraf/blob/master/docs/CONFIGURATION.md), [how to set up](https://community.influxdata.com/t/prometheus-with-telegraf/12173/3), [client to send to prometheus](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/prometheus_client), [list of metrics](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker), [simple example of set up](https://blog.nobugware.com/post/2016/telegraf_prometheus_metrics_swiss_army_knife/), [good example of set telegraf-influxdb-grafana w/o prometheus](https://ezhvsalate.ru/posts/monitoring-za-chas-influxdb-telegraf-grafana/)
+- prometheus: [some useful examples of requests](https://prometheus.io/docs/prometheus/latest/querying/examples/), [examples of checks](https://cloudprober.org/getting-started/#running-prometheus)
+alertmanager: [how to set up alerts to be send through email](https://prometheus.io/docs/alerting/configuration/) and [examples](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
+- grafana - import dashboards automatically: [how to inport provider](http://www.inanzzz.com/index.php/post/yglp/export-and-import-grafana-dashboard-and-data-sources), [how to provision boards and providers](https://grafana.com/docs/grafana/latest/administration/provisioning/), [default paths and setting for docker image of grafana](https://grafana.com/docs/grafana/latest/installation/configure-docker/), samples of provisioning config: [one](https://github.com/grafana/grafana/blob/master/conf/provisioning/dashboards/sample.yaml), [two](https://community.grafana.com/t/dashboard-provisioning/5667/5), [three](https://grafana.com/docs/grafana/latest/administration/provisioning/#dashboards); [datasources](https://grafana.com/docs/grafana/latest/administration/provisioning/#datasources)
+- stackdriver: [stackoverflow tips](https://stackoverflow.com/questions/48617103/monitoring-stackdriver-using-prometheus), [frodenas exporter](https://github.com/frodenas/stackdriver_exporter), [how to create account with appropriate rights for stacdriver](https://github.com/frodenas/stackdriver_exporter#credentials-and-permissions)
+- trickster: [official repo](https://github.com/tricksterproxy/trickster), [how to cinfigure](https://github.com/tricksterproxy/trickster/blob/master/docs/configuring.md), [example of cinfig file](https://github.com/tricksterproxy/trickster/blob/master/cmd/trickster/conf/example.conf)
+- autoheal + awx: [role from geerlingguy](https://github.com/geerlingguy/ansible-role-awx), [interesting post from habr](https://habr.com/ru/company/pixonic/blog/352184/), [autoheal repo](https://github.com/openshift/autoheal), [small sample of using autoheal](https://issue.life/questions/47088261)
+- prometheus+nodexport+grafana: [sample 1](https://medium.com/southbridge/prometheus-monitoring-ba8fbda6e83), [sample 2](https://kamaok.org.ua/?p=3332)
+
 ### monitoring-1
 ###### What's been done during this homework:
 - docker host was created and prometheus installed and explored onto it

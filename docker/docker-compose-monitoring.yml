@@ -1,0 +1,137 @@
+version: '3.3'
+services:
+
+  prometheus:
+    image: ${USERNAME}/prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
+    networks:
+      - front_net
+      - back_net
+
+  node-exporter:
+    image: prom/node-exporter:v0.15.2
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    networks:
+      - front_net
+      - back_net
+
+  mongodb-exporter:
+    image: ${USERNAME}/percona-mongodb-exporter:$VER_MONGODBEXP
+    environment:
+      MONGODB_URI: "mongodb://post_db:27017"
+    ports:
+      - '9216:9216'
+    networks:
+      - back_net
+
+  cloudprober:
+    image: ${USERNAME}/google-cloudprober:$VER_CLOUDPROBER
+    networks:
+      - front_net
+      - back_net
+
+  cadvisor:
+    image: google/cadvisor:v0.29.0
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+    ports:
+      - '8080:8080'
+    networks:
+      - front_net
+      - back_net
+
+  grafana:
+#    image: grafana/grafana:5.0.0
+    image: ${USERNAME}/grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    networks:
+      - front_net
+      - back_net
+
+  alertmanager:
+    image: ${USER_NAME}/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+    ports:
+      - 9093:9093
+    networks:
+      - front_net
+      - back_net
+
+  telegraf:
+    image: ${USER_NAME}/telegraf
+    restart: always
+    environment:
+      HOST_PROC: /rootfs/proc
+      HOST_SYS: /rootfs/sys
+      HOST_ETC: /rootfs/etc
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/rootfs/sys:ro
+      - /proc:/rootfs/proc:ro
+      - /etc:/rootfs/etc:ro
+    ports:
+      - 9273:9273
+    networks:
+      - back_net
+
+  stackdriver-exporter:
+    image: ${USER_NAME}/stackdriver
+    ports:
+      - 9255:9255
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/opt/gcp-key/docker-267019-stackdriver.json
+      - STACKDRIVER_EXPORTER_GOOGLE_PROJECT_ID=docker-267019
+      - STACKDRIVER_EXPORTER_MONITORING_METRICS_TYPE_PREFIXES=compute.googleapis.com/instance/cpu,compute.googleapis.com/instance/disk
+    networks:
+      - back_net
+      - front_net
+
+  trickster:
+    image: tricksterio/trickster
+    environment:
+      - TRK_ORIGIN=http://prometheus:9090
+      - TRK_ORIGIN_TYPE=prometheus
+      - TRK_LOG_LEVEL=INFO
+      - TRK_PROXY_PORT=9890
+      - TRK_METRICS_PORT=9898
+    ports:
+      - 9890:9890
+      - 9898:9898
+    networks:
+      - back_net
+      - front_net
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  front_net:
+  back_net:
