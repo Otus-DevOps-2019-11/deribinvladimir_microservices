@@ -2,6 +2,20 @@
 
 ## deribinvladimir_microservices
 
+### logging-1
+###### What's been done during this homework:
+- docker-compose-logging.yml was created to use elastic stack 
+- fluentd was set up, code of our app was updated to send logs and fluentd was added to services configs as logging driver
+- logging in kibana was checked
+- some different filters were added in fluentd config and checked in kibana
+- logging for ui and parsing rules were added and checked in kibana
+- grok-templates were added and checked
+- zipkin was added to all our services and some traces were checked
+- \* another grok-template was added to fluentd config
+- \* bugged app was traced by zipkin and error was found
+###### Additional resources used during this homework:
+- grok-templates for fluentd: [readme](https://github.com/fluent/fluent-plugin-grok-parser/blob/master/README.md) and [examples of templates](https://github.com/fluent/fluent-plugin-grok-parser/tree/master/patterns)
+
 ### monitoring-2
 ###### What's been done during this homework:
 - docker-compose.yml was splitted to tow different parts - for apps and for monitoring services 
