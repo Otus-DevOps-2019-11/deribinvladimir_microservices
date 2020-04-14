@@ -1,0 +1,23 @@
+all:
+  vars:
+    project_id: "docker-267019"
+    credentials_file: /home/username/.config/gcloud/docker-267019-ca2558b3bd84.json
+    service_account_email: 102323930000-compute@developer.gserviceaccount.com
+    region: "europe-west3"
+    zone: "europe-west3-c"
+
+    work_path: "../the_hard_way"
+    clean_work_path: no
+
+    machine_type: n1-standard-1
+    controllers_count: 3
+    workers_count: 1
+
+    ansible_ssh_private_key_file: /home/deribinvladimir/.ssh/appuser
+    ssh_pub_key: "{{lookup('file', '/home/deribinvladimir/.ssh/appuser.pub')  }}"
+    ansible_user: appuser
+
+local:
+  hosts:
+    localhost:
+      ansible_connection: local
