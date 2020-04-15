@@ -1,0 +1,24 @@
+---
+- name: Install kubectl and cert utils
+  hosts: localhost
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Download cfssl
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/linux/cfssl
+        dest: /usr/local/bin/cfssl
+        mode: 0755
+
+    - name: Download cfssljson
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/linux/cfssljson
+        dest: /usr/local/bin/cfssljson
+        mode: 0755
+
+    - name: Download kubectl
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/linux/amd64/kubectl
+        dest: /usr/local/bin/kubectl
+        mode: 0755

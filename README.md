@@ -2,6 +2,17 @@
 
 ## deribinvladimir_microservices
 
+### kubernetes-1
+###### What's been done during this homework:
+- comment-deployment.yml, mongo-deployment.yml, post-deployment.yml and ui-deployment.yml manifests were created for our reddit microservice
+- kubernetes cluster was created using "Kubernetes The hard way" manual and our manifests were checked on it
+- ansible configs were created to deploy KTHW
+###### Additional resources used during this homework:
+- [info about regions and zones of gcp](https://cloud.google.com/compute/docs/regions-zones)
+- [tmux tips and tricks](https://losst.ru/shpargalka-po-tmux)
+- [Kubernetes the not so hard way with Ansible](https://www.tauceti.blog/post/kubernetes-the-not-so-hard-way-with-ansible-the-basics/)
+- one more easy way to deploy kubernetes cluster: [manual](https://github.com/justmeandopensource/kubernetes/blob/master/docs/install-cluster.md) and [video](https://www.youtube.com/watch?v=Araf8JYQn3w)
+
 ### logging-1
 ###### What's been done during this homework:
 - docker-compose-logging.yml was created to use elastic stack 
