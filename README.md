@@ -2,6 +2,16 @@
 
 ## deribinvladimir_microservices
 
+### kubernetes-2
+###### What's been done during this homework:
+- yaml-manifests for reddit app were created and tested with minikube and gke
+- yaml-manifests for gke dashboard were created
+- terraform config was created to deploy kubernetes cluster in gcp
+###### Additional resources used during this homework:
+- minikube: [Getting started with Kubernetes and Docker with minikube](https://medium.com/@yzhong.cs/getting-started-with-kubernetes-and-docker-with-minikube-b413d4deeb92), [https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/](https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
+- [kind (alternative way to test local k8s cluster)](https://kubernetes.io/docs/setup/learning-environment/kind/), [kind in GitHub](https://github.com/kubernetes-sigs/kind)
+- GKE and terraform: [google_container_cluster](https://www.terraform.io/docs/providers/google/r/container_cluster.html), [Kubernetes Cluster in Google Kubernetes Engine (GKE)](https://github.com/hashicorp/terraform-guides/tree/master/infrastructure-as-code/k8s-cluster-gke), [How to create k8s cluster in GKE with namespaces](https://issue.life/questions/50088355)
+
 ### kubernetes-1
 ###### What's been done during this homework:
 - comment-deployment.yml, mongo-deployment.yml, post-deployment.yml and ui-deployment.yml manifests were created for our reddit microservice
@@ -15,7 +25,7 @@
 
 ### logging-1
 ###### What's been done during this homework:
-- docker-compose-logging.yml was created to use elastic stack 
+- docker-compose-logging.yml was created to use elastic stack
 - fluentd was set up, code of our app was updated to send logs and fluentd was added to services configs as logging driver
 - logging in kibana was checked
 - some different filters were added in fluentd config and checked in kibana
@@ -29,7 +39,7 @@
 
 ### monitoring-2
 ###### What's been done during this homework:
-- docker-compose.yml was splitted to tow different parts - for apps and for monitoring services 
+- docker-compose.yml was splitted to tow different parts - for apps and for monitoring services
 - grafana was installed with some dashboards and different requests
 - business logic monitoring dashboard was added
 - alertmanager was added and integration set up with slack
