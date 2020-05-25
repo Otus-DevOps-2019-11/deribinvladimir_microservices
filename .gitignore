@@ -8,3 +8,6 @@ variables.json
 *.retry
 jdauphant.nginx
 build_info.txt
+tls.key
+tls.crt
+.~lock.tls.key#
