@@ -2,6 +2,16 @@
 
 ## deribinvladimir_microservices
 
+### kubernetes-3
+###### What's been done during this homework:
+- kube-dns service was tested
+- different types of network services were tested (NodePort, LoadBalancer, Ingress)
+- tls termination with tls secret was added and yaml-manuifest was created for secret (*)
+- network policy with yaml-manifest was created and tested
+- different types of volumes were created and tested with appropriate yaml-manifests
+###### Additional resources used during this homework:
+- tls secrets in k8s: [ssl certificates in ingress](https://mcs.mail.ru/help/ingress/ssl-ingress), [tls secrets with ingress/nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/), [how to set secret files to k8s](https://stackoverflow.com/questions/36887946/how-to-set-secret-files-to-kubernetes-secrets-by-yaml), [k8s - concepts of secrets](https://kubernetes.io/docs/concepts/configuration/secret/), [helm - temlpates for k8s tls secrets](https://github.com/helm/charts/blob/master/stable/wordpress/templates/tls-secrets.yaml), [MS - ingress own tls](https://docs.microsoft.com/ru-ru/azure/aks/ingress-own-tls)
+
 ### kubernetes-2
 ###### What's been done during this homework:
 - yaml-manifests for reddit app were created and tested with minikube and gke
