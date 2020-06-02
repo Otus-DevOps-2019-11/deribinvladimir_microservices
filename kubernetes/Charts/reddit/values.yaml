@@ -1,0 +1,23 @@
+comment:
+  image:
+    repository: deribinvladimir/comment
+    tag: latest
+  service:
+    internalPort: 9292
+    externalPort: 9292
+
+post:
+  image:
+    repository: deribinvladimir/post
+    tag: latest
+  service:
+    internalPort: 5000
+    externalPort: 5000
+
+ui:
+  image:
+    repository: deribinvladimir/ui
+    tag: latest
+  service:
+    externalPort: 9292
+    internalPort: 9292
