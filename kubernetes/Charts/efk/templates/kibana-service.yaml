@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kibana
+    release: kibana
+  name: kibana
+spec:
+  ports:
+#  - nodePort: 30496
+  - port: 443
+    protocol: TCP
+    targetPort: 5601
+  selector:
+    app: kibana
+    release: kibana
+  type: NodePort

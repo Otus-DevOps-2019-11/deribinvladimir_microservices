@@ -1,0 +1,14 @@
+# we need this one only in some rare cases when we can't apply proper labels to our ServiceMonitor
+#apiVersion: monitoring.coreos.com/v1
+#kind: Prometheus
+#metadata:
+#  name: prometheus-reddit-comment
+#  labels:
+#    prometheus: reddit-comment
+#spec:
+#  version: v1.3.0
+#  serviceMonitors:
+#  - selector:
+#      matchLabels:
+#        reddit: comment
+#        release: {{ $.Release.Name }}

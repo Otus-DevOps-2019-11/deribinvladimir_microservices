@@ -1,0 +1,7 @@
+name: efk-stack
+version: 1.0.0
+description: OTUS EFK set
+maintainers:
+  - name: Deribin Vladimir
+    email: technician@gmx.co.uk
+appVersion: 1.0

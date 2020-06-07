@@ -10,6 +10,7 @@ metadata:
 spec:
   ports:
   - port: {{ .Values.service.externalPort }}
+    name: port9292
     protocol: TCP
     targetPort: {{ .Values.service.internalPort }}
   selector:

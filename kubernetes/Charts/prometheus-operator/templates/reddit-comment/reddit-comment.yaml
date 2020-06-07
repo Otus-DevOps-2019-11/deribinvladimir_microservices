@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: reddit-comment
+  labels:
+    reddit: comment
+    release: {{ $.Release.Name }}
+spec:
+  namespaceSelector:
+    any: true
+#    matchNames: ["default","production"]
+#      - production
+  selector:
+    matchLabels:
+      app: reddit
+      component: comment
+      # release: production
+  endpoints:
+  - port: port9292
+    targetPort: port9292
+    path: "/metrics"
+interval: 30s

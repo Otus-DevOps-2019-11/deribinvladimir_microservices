@@ -2,6 +2,21 @@
 
 ## deribinvladimir_microservices
 
+### kubernetes-5
+###### What's been done during this homework:
+- ingress-controller was installed using helm chart
+- prometheus was downloaded locally and installed with our custom values to gke k8s cluster
+- kubeStateMetrics and nodeExporter were turned on and prometheus config was updated to get metrics from our reddit app with different circumstances
+- grafana was installed using helm, and our templates were added and modified to add choice of env
+- \* alertmanager was enabled and alerting to slack was added in case of nodes down
+- \* prometehus operator was installed to different namespace and updated to get metrics from comment app
+- EFK stack was installed to log our reddit app and \* helm-chart was created for it
+###### Additional resources used during this homework:
+- prometheus operator: [how to add new scraping targets](https://blog.pilosus.org/posts/2019/06/01/prometheus-operator-no-active-targets/), [prometheus operator - good how-to](https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html), [how to monitor external services (important info about adding your service using "prometheus" service type)](https://devops.college/prometheus-operator-how-to-monitor-an-external-service-3cb6ac8d5acb), [debugging usage of external services](https://github.com/coreos/prometheus-operator/issues/2117), [some examples of ServiceMonitor usage](https://github.com/coreos/prometheus-operator/issues/2812), [common example of prometeus operator usage](https://habr.com/ru/company/flant/blog/340728/)
+- prometheus operator - important tech info: [chart](https://github.com/helm/charts/tree/master/stable/prometheus-operator), [serviceMonitor spec](https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#servicemonitorspec), [homesite](https://hub.helm.sh/charts/bitnami/prometheus-operator), [defaul port allocations for prometheus services](https://github.com/prometheus/prometheus/wiki/Default-port-allocations)
+- Kibana helm chart: [good description](https://hub.helm.sh/charts/stable/kibana), [helm chart](https://github.com/elastic/helm-charts/tree/master/kibana)
+- how to monitor k8s cluster using prometheus: [Monitoring with Prometheus](https://boxboat.com/2019/08/08/monitoring-kubernetes-with-prometheus/), [Monitoring with Prometheus (RUS)](https://kamaok.org.ua/?p=3109)
+
 ### kubernetes-4
 ###### What's been done during this homework:
 - helm chart with helpers, dependencies and templates was created for our reddit microservices
