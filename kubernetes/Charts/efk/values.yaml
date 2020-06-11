@@ -1,0 +1,3 @@
+elasticsearchurl: http://elasticsearch-logging:9200
+kibanaversion: kibana:5.4.3
+kibanahostname: reddit-efk-kibana

@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: kibana
+    release: kibana
+  name: kibana
+spec:
+  rules:
+  - host: {{ .Values.kibanahostname | default "reddit-efk-kibana" }}
+    http:
+      paths:
+      - backend:
+          serviceName: kibana
+          servicePort: 443
+        path: /
