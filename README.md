@@ -2,6 +2,15 @@
 
 ## deribinvladimir_microservices
 
+### kubernetes-4
+###### What's been done during this homework:
+- helm chart with helpers, dependencies and templates was created for our reddit microservices
+- helm3 and different tiller modes were tested
+- gitlab was installed to gke and our projects were created in it
+- CI pipeline was created for our services
+- pipelines were developed with different deploy modes (helm2, helm3, tiller-as-plugin)
+- pipeline for master branch was modified to deploy to prod after commit to master
+
 ### kubernetes-3
 ###### What's been done during this homework:
 - kube-dns service was tested
